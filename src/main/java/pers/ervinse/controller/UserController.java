@@ -14,8 +14,11 @@ import pers.ervinse.service.UserService;
 @RequestMapping("/users")
 public class UserController {
 
+    private final UserService userService;
     @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 根据账号和密码登录
@@ -49,9 +52,6 @@ public class UserController {
     @GetMapping("/getDescription/{name}")
     public String getDescription(@PathVariable String name){
         log.info("getDescription :" + name);
-
         return userService.getDescription(name);
     }
-
-
 }
