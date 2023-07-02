@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class GoodsServiceImpl implements GoodsService {
 
+
+    private final GoodsMapper goodsMapper;
     @Autowired
-    GoodsMapper goodsMapper;
+    public GoodsServiceImpl(GoodsMapper goodsMapper) {
+        this.goodsMapper = goodsMapper;
+    }
 
     @Override
     public List<Goods> getAll(){

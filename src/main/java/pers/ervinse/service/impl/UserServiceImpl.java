@@ -14,8 +14,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+
+    private final UserMapper userMapper;
     @Autowired
-    UserMapper userMapper;
+    public UserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     /**
      * 根据用户名和密码判断是否登录成功
@@ -23,10 +27,9 @@ public class UserServiceImpl implements UserService {
      * @return 登录成功返回true,否则返回false
      */
     @Override
-    public Boolean login(User user){
-
+    public boolean login(User user){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("name", user.getName());
+        wrapper.eq("uid", user.getUid());
         wrapper.eq("password", user.getPassword());
         User userByLogin = userMapper.selectOne(wrapper);
         return userByLogin != null;
@@ -40,23 +43,22 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public boolean register(User user){
-
+    public int register(User user){
+        if(user==null){return -1;}//如果前端传入的user为空
+        else if(user.getName()==null||user.getUid()==null||user.getPassword()==null){return -1;}
         log.info("register :" + user);
-
         //根据注册的名字查询有无同名
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("name", user.getName());
+        wrapper.eq("uid", user.getUid());
         List<User> userList = userMapper.selectList(wrapper);
         //查到同名
         if (userList.size() > 0){
-            return false;
+            return 0;
         //未查到同名
         }else {
             int affectRows = userMapper.insert(user);
             log.info("插入成功.影响了" + affectRows + "行");
-
-            return true;
+            return 1;
         }
     }
 

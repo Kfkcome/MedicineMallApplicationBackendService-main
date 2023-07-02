@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 @TableName("user")//定的数据库表和 JavaBean 进⾏映射
 public class User {
     @TableId()
+    private Integer id;
     private String name;
+    private String uid;
     private String password, description;
 
 }
