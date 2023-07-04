@@ -1,5 +1,7 @@
 package pers.ervinse.utils;
 
+import pers.ervinse.enums.ResponseCode;
+
 import java.io.Serializable;
 import java.util.StringJoiner;
 
@@ -35,8 +37,8 @@ public class ApiResponse<T> implements Serializable {
         return new ApiResponse<>(code, "操作成功", data);
     }
 
-    public static <T> ApiResponse<T> fail() {
-        return new ApiResponse<>(ResponseCode.FAILURE.getCode(), ResponseCode.FAILURE.getMessage());
+    public static <T> ApiResponse<T> fail(ResponseCode emums) {
+        return new ApiResponse<>(emums.getCode(), emums.getMessage());
     }
 
     public static <T> ApiResponse<T> fail(Integer code, String message) {

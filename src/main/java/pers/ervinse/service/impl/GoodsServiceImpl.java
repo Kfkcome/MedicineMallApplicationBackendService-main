@@ -2,7 +2,7 @@ package pers.ervinse.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pers.ervinse.domain.Goods;
+import pers.ervinse.domain.Commodity;
 import pers.ervinse.mapper.GoodsMapper;
 import pers.ervinse.service.GoodsService;
 
@@ -13,23 +13,24 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     private final GoodsMapper goodsMapper;
+
     @Autowired
     public GoodsServiceImpl(GoodsMapper goodsMapper) {
         this.goodsMapper = goodsMapper;
     }
 
     @Override
-    public List<Goods> getAll(){
+    public List<Commodity> getAll() {
         return goodsMapper.selectList(null);
     }
 
     @Override
-    public List<Goods> getHotGoods(){
+    public List<Commodity> getHotGoods() {
         return goodsMapper.selectHotGoods();
     }
 
     @Override
-    public Goods getGoodInfo(Integer CommodityID) {
+    public Commodity getGoodInfo(Integer CommodityID) {
         return goodsMapper.selectByCommodityIDGoods(CommodityID);
     }
 

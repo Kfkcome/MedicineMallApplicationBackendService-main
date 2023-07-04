@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pers.ervinse.domain.Goods;
+import pers.ervinse.domain.Commodity;
 import pers.ervinse.service.GoodsService;
 import pers.ervinse.utils.ApiResponse;
 
@@ -35,10 +35,10 @@ public class GoodsController {
     /**
      * 得到所有
      *
-     * @return {@link List}<{@link Goods}>
+     * @return {@link List}<{@link Commodity}>
      */
     @GetMapping("/AllGoods")
-    public ApiResponse<List<Goods>> getAll(){
+    public ApiResponse<List<Commodity>> getAll() {
         log.info("getAllGoods");
         return ApiResponse.success(goodsService.getAll());
     }
@@ -47,10 +47,10 @@ public class GoodsController {
     /**
      * 获取热点商品
      *
-     * @return {@link List}<{@link Goods}>
+     * @return {@link List}<{@link Commodity}>
      */
     @GetMapping("/hotGoods")
-    public ApiResponse<List<Goods>> getHotGoods(){
+    public ApiResponse<List<Commodity>> getHotGoods() {
         log.info("getHotGoods");
         return ApiResponse.success(goodsService.getHotGoods());
     }
@@ -59,10 +59,10 @@ public class GoodsController {
      * 获取详细商品信息
      *
      * @param CommodityID 商品id
-     * @return {@link Goods}
+     * @return {@link Commodity}
      */
     @GetMapping("/GoodInfo/{CommodityID}")
-    public ApiResponse<Goods> getGoodInfo(@PathVariable Integer CommodityID){
+    public ApiResponse<Commodity> getGoodInfo(@PathVariable Integer CommodityID) {
         return ApiResponse.success(goodsService.getGoodInfo(CommodityID));
     }
 }

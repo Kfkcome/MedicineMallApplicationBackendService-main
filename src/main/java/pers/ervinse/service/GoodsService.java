@@ -1,13 +1,14 @@
 package pers.ervinse.service;
 
-import pers.ervinse.domain.Goods;
+import pers.ervinse.domain.Commodity;
 
 import java.util.List;
 
 public interface GoodsService {
 
-    List<Goods> getAll();
+    List<Commodity> getAll();
 
-    List<Goods> getHotGoods();
-    Goods getGoodInfo(Integer CommodityID);
+    List<Commodity> getHotGoods();
+
+    Commodity getGoodInfo(Integer CommodityID);
 }

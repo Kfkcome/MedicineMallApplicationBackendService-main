@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("user_info")//定的数据库表和 JavaBean 进⾏映射
-@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY, getterVisibility=JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class User {
     @TableId(type = IdType.AUTO)
     private Integer UserID;
@@ -21,5 +21,18 @@ public class User {
     private String UserAccount, UserPassword;
     private String UserSex;
     private String UserExtendInfo;
+
+
+    /**
+     * op
+     * 0. op_id
+     *
+     * 1. user_id
+     *
+     * 2. op_type --0 加入cart  --1 登录  --2 移除  --3 下单 --4 支付  --5确认收货  --6 评论
+     *
+     * 3. parms 参数
+     *
+     */
 
 }
