@@ -8,10 +8,10 @@ import pers.ervinse.domain.Commodity;
 import java.util.List;
 
 @Mapper
-public interface GoodsMapper extends BaseMapper<Commodity> {
+public interface CommodityMapper extends BaseMapper<Commodity> {
 
 
-    List<Commodity> selectHotGoods();
+    List<Commodity> selectHotCommodity();
 
-    Commodity selectByCommodityIDGoods(@Param("CommodityID") Integer CommodityID);
+    Commodity selectByCommodityIDCommodity(@Param("CommodityID") Integer CommodityID);
 }

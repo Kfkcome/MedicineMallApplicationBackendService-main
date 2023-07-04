@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pers.ervinse.domain.Commodity;
 import pers.ervinse.domain.User;
-import pers.ervinse.mapper.GoodsMapper;
+import pers.ervinse.mapper.CommodityMapper;
 import pers.ervinse.mapper.UserMapper;
 import pers.ervinse.service.UserService;
 
@@ -17,7 +17,7 @@ class MedicinesMallApplicationBackendServiceApplicationTests {
     @Autowired
     private UserService userService;
     @Autowired
-    private GoodsMapper goodsMapper;
+    private CommodityMapper commodityMapper;
 
     @Test
     void contextLoads() {
@@ -34,8 +34,8 @@ class MedicinesMallApplicationBackendServiceApplicationTests {
     }
 
     @Test
-    void testGetGoods() {
-        for (Commodity selectHotGood : goodsMapper.selectHotGoods()) {
+    void testGetCommodity() {
+        for (Commodity selectHotGood : commodityMapper.selectHotCommodity()) {
             System.out.println(selectHotGood.getCommodityName());
         }
     }

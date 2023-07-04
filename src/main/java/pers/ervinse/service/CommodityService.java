@@ -4,11 +4,11 @@ import pers.ervinse.domain.Commodity;
 
 import java.util.List;
 
-public interface GoodsService {
+public interface CommodityService {
 
     List<Commodity> getAll();
 
-    List<Commodity> getHotGoods();
+    List<Commodity> getHotCommodity();
 
     Commodity getGoodInfo(Integer CommodityID);
 }

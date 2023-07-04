@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pers.ervinse.domain.Commodity;
-import pers.ervinse.service.GoodsService;
+import pers.ervinse.service.CommodityService;
 import pers.ervinse.utils.ApiResponse;
 
 import java.util.List;
@@ -21,15 +21,15 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/goods")
-public class GoodsController {
+@RequestMapping("/medicines")
+public class CommodityController {
 
 
-    private final GoodsService goodsService;
+    private final CommodityService commodityService;
 
     @Autowired
-    public GoodsController(GoodsService goodsService) {
-        this.goodsService = goodsService;
+    public CommodityController(CommodityService commodityService) {
+        this.commodityService = commodityService;
     }
 
     /**
@@ -37,10 +37,10 @@ public class GoodsController {
      *
      * @return {@link List}<{@link Commodity}>
      */
-    @GetMapping("/AllGoods")
+    @GetMapping("/AllMedicine")
     public ApiResponse<List<Commodity>> getAll() {
-        log.info("getAllGoods");
-        return ApiResponse.success(goodsService.getAll());
+        log.info("getAllCommodity");
+        return ApiResponse.success(commodityService.getAll());
     }
 
 
@@ -49,10 +49,10 @@ public class GoodsController {
      *
      * @return {@link List}<{@link Commodity}>
      */
-    @GetMapping("/hotGoods")
-    public ApiResponse<List<Commodity>> getHotGoods() {
-        log.info("getHotGoods");
-        return ApiResponse.success(goodsService.getHotGoods());
+    @GetMapping("/hotMedicine")
+    public ApiResponse<List<Commodity>> getHotCommodity() {
+        log.info("getHotMedicine");
+        return ApiResponse.success(commodityService.getHotCommodity());
     }
 
     /**
@@ -61,8 +61,8 @@ public class GoodsController {
      * @param CommodityID 商品id
      * @return {@link Commodity}
      */
-    @GetMapping("/GoodInfo/{CommodityID}")
+    @GetMapping("/MedicineInfo/{CommodityID}")
     public ApiResponse<Commodity> getGoodInfo(@PathVariable Integer CommodityID) {
-        return ApiResponse.success(goodsService.getGoodInfo(CommodityID));
+        return ApiResponse.success(commodityService.getGoodInfo(CommodityID));
     }
 }
