@@ -46,6 +46,13 @@
             <version>3.5.2</version>
         </dependency>
 
+        <!--mybatis启动器-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
         <!--lombok版本由SpringBoot提供，无需指定版本-->
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -28,10 +28,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean login(User user){
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("uid", user.getUid());
-        wrapper.eq("password", user.getPassword());
-        User userByLogin = userMapper.selectOne(wrapper);
+        User userByLogin = userMapper.searchAllByUserAccountAndUserPasswordUser
+                (user.getUserAccount(), user.getUserPassword());
         return userByLogin != null;
     }
 
@@ -45,11 +43,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int register(User user){
         if(user==null){return -1;}//如果前端传入的user为空
-        else if(user.getName()==null||user.getUid()==null||user.getPassword()==null){return -1;}
+        else if(user.getUserName()==null||user.getUserAccount()==null||user.getUserPassword()==null){return -1;}
         log.info("register :" + user);
         //根据注册的名字查询有无同名
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("uid", user.getUid());
+        wrapper.eq("UserAccount", user.getUserAccount());
         List<User> userList = userMapper.selectList(wrapper);
         //查到同名
         if (userList.size() > 0){
@@ -68,9 +66,9 @@ public class UserServiceImpl implements UserService {
 
         log.info("getDescription :" + name);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("name", name);
+        wrapper.eq("UserAccount", name);
         User userBySelect = userMapper.selectOne(wrapper);
-        return userBySelect.getDescription();
+        return userBySelect.getUserExtendInfo();
 
     }
 
