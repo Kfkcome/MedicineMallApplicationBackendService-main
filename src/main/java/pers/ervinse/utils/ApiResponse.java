@@ -32,7 +32,7 @@ public class ApiResponse<T> implements Serializable {
     }
 
     public static <T> ApiResponse<T> success(Integer code, T data) {
-        return new ApiResponse<>(code, "查询一次就结束了", data);
+        return new ApiResponse<>(code, "操作成功", data);
     }
 
     public static <T> ApiResponse<T> fail() {

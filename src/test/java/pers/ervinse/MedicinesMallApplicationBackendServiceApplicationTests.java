@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pers.ervinse.controller.UserController;
 import pers.ervinse.domain.User;
 import pers.ervinse.mapper.UserMapper;
+import pers.ervinse.service.UserService;
 
 import java.sql.Wrapper;
 
@@ -13,6 +15,8 @@ import java.sql.Wrapper;
 class MedicinesMallApplicationBackendServiceApplicationTests {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
     @Test
     void contextLoads() {
@@ -20,6 +24,11 @@ class MedicinesMallApplicationBackendServiceApplicationTests {
         wrapper.eq("UserAccount","123456");
         wrapper.eq("UserPassword","123456789");
         System.out.println(userMapper.searchAllByUserAccountAndUserPasswordUser("123456","123456789"));
+    }
+    @Test
+    void testRegister(){
+        System.out.println(userService.getDescription("123456").getUserExtendInfo());
+
     }
 
 }

@@ -8,5 +8,5 @@ public interface UserService {
 
     int register(User user);
 
-    String getDescription(String name);
+    User getUserInfo(String name);
 }

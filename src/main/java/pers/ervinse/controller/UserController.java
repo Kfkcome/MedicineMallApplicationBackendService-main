@@ -8,9 +8,7 @@ import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
 import pers.ervinse.utils.LogPrint;
 
-/**
- * 用户
- */
+
 @Slf4j
 @RestController
 @RequestMapping("/users")
@@ -48,7 +46,7 @@ public class UserController {
             case 1:return ApiResponse.success(200,1);
             case 0:return ApiResponse.fail(202,"注册失败因为账号已经存在");
             case -1:return ApiResponse.fail(201,"注册失败因为账号信息输入不全");
-            default:return ApiResponse.success();
+            default:return ApiResponse.fail(250,"未知错误");
         }
 
     }
@@ -56,13 +54,15 @@ public class UserController {
 
     /**
      * 获取描述
-     * @param name
-     * @return
+     * @param UserAccount 用户账号
+     * @return ApiResponse<User> 用户所有信息
      */
     @LogPrint
-    @GetMapping("/getDescription/{name}")
-    public ApiResponse<String> getDescription(@PathVariable String name){
-        log.info("getDescription :" + name);
-        return ApiResponse.success(userService.getDescription(name));
+    @GetMapping("/getDescription/{UserAccount}")
+    public ApiResponse<User> getUserInfo(@PathVariable String UserAccount){
+        log.info("getUserInfo :" + UserAccount);
+        User userInfo = userService.getUserInfo(UserAccount);
+        if(userInfo==null)return ApiResponse.fail(201,"没有该账号");
+        return ApiResponse.success(userInfo);
     }
 }

@@ -38,17 +38,15 @@ public class UserServiceImpl implements UserService {
      * 根据用户名判断是否重名
      * 无重名添加数据到数据库
      * @param user 注册成功返回true ,注册失败返回false
-     * @return
+     * @return state -1：信息有误 0：账号已经存在 1：注册成功
      */
     @Override
     public int register(User user){
-        if(user==null){return -1;}//如果前端传入的user为空
-        else if(user.getUserName()==null||user.getUserAccount()==null||user.getUserPassword()==null){return -1;}
+        if(user==null||user.getUserName()==null
+                ||user.getUserAccount()==null||user.getUserPassword()==null){return -1;}//如果前端传入的user为空
         log.info("register :" + user);
         //根据注册的名字查询有无同名
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("UserAccount", user.getUserAccount());
-        List<User> userList = userMapper.selectList(wrapper);
+        List<User> userList = userMapper.searchAllByUserAccountUserList(user.getUserAccount());
         //查到同名
         if (userList.size() > 0){
             return 0;
@@ -62,14 +60,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String getDescription(String name){
+    public User getUserInfo(String UserAccount){
 
-        log.info("getDescription :" + name);
+        log.info("getDescription :" + UserAccount);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("UserAccount", name);
-        User userBySelect = userMapper.selectOne(wrapper);
-        return userBySelect.getUserExtendInfo();
-
+        wrapper.eq("UserAccount", UserAccount);
+        return userMapper.selectOne(wrapper);
     }
 
 

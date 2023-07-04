@@ -9,4 +9,8 @@
     <select id="searchAllByUserAccountAndUserPasswordUser" resultType="pers.ervinse.domain.User">
         select * from user_info where UserAccount=#{UserAccount} and UserPassword=#{UserPassword};
     </select>
+    <select id="searchAllByUserAccountUserList" resultType="pers.ervinse.domain.User">
+        select *
+        from user_info where UserAccount=#{UserAccount};
+    </select>
 </mapper>
