@@ -19,16 +19,32 @@ public class GoodsServiceImpl implements GoodsService {
         this.goodsMapper = goodsMapper;
     }
 
+    /**
+     * 得到所有药品
+     *
+     * @return {@link List}<{@link Goods}>
+     */
     @Override
     public List<Commodity> getAll() {
         return goodsMapper.selectList(null);
     }
 
+    /**
+     * 获取药品信息
+     *
+     * @return {@link List}<{@link Goods}>
+     */
     @Override
     public List<Commodity> getHotGoods() {
         return goodsMapper.selectHotGoods();
     }
 
+    /**
+     * 得到药品信息
+     *
+     * @param CommodityID 商品id
+     * @return {@link Goods}
+     */
     @Override
     public Commodity getGoodInfo(Integer CommodityID) {
         return goodsMapper.selectByCommodityIDGoods(CommodityID);

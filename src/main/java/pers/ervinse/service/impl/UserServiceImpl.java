@@ -59,6 +59,12 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    /**
+     * 获取用户信息
+     *
+     * @param UserAccount 用户账号
+     * @return {@link User}
+     */
     @Override
     public User getUserInfo(String UserAccount){
 
