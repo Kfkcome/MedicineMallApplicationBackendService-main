@@ -9,4 +9,5 @@ public interface GoodsService {
     List<Goods> getAll();
 
     List<Goods> getHotGoods();
+    Goods getGoodInfo(Integer CommodityID);
 }

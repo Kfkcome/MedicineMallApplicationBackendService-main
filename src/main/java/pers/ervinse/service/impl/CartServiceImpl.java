@@ -13,21 +13,26 @@ import java.util.List;
 @Service
 public class CartServiceImpl implements CartService {
 
+
+    private final CartMapper cartMapper;
     @Autowired
-    CartMapper cartMapper;
+    public CartServiceImpl(CartMapper cartMapper) {
+        this.cartMapper = cartMapper;
+    }
 
     @Override
     public int addGoodsToCart(Goods goods) {
 
-        log.info("addGoodsToCart :" + goods);
-        goods.setNumber(1);
-
-        Goods goodsBySelect = cartMapper.selectByName(goods);
-        if (goodsBySelect == null) {
-            return cartMapper.insertToCart(goods);
-        }else {
-            return 0;
-        }
+//        log.info("addGoodsToCart :" + goods);
+//        goods.setNumber(1);
+//
+//        Goods goodsBySelect = cartMapper.selectByName(goods);
+//        if (goodsBySelect == null) {
+//            return cartMapper.insertToCart(goods);
+//        }else {
+//            return 0;
+//        }
+        return 0;
     }
 
     @Override

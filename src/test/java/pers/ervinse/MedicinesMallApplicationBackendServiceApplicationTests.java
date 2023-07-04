@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pers.ervinse.controller.UserController;
+import pers.ervinse.domain.Goods;
 import pers.ervinse.domain.User;
+import pers.ervinse.mapper.GoodsMapper;
 import pers.ervinse.mapper.UserMapper;
 import pers.ervinse.service.UserService;
 
@@ -17,6 +19,8 @@ class MedicinesMallApplicationBackendServiceApplicationTests {
     private UserMapper userMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private GoodsMapper goodsMapper;
 
     @Test
     void contextLoads() {
@@ -27,8 +31,14 @@ class MedicinesMallApplicationBackendServiceApplicationTests {
     }
     @Test
     void testRegister(){
-        System.out.println(userService.getDescription("123456").getUserExtendInfo());
+        System.out.println(userService.getUserInfo("123456").getUserExtendInfo());
 
+    }
+    @Test
+    void testGetGoods(){
+        for (Goods selectHotGood : goodsMapper.selectHotGoods()) {
+            System.out.println(selectHotGood.getCommodityName());
+        }
     }
 
 }

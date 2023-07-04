@@ -20,11 +20,17 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<Goods> getAll(){
-        return goodsMapper.selectAll();
+        return goodsMapper.selectList(null);
     }
 
     @Override
     public List<Goods> getHotGoods(){
         return goodsMapper.selectHotGoods();
     }
+
+    @Override
+    public Goods getGoodInfo(Integer CommodityID) {
+        return goodsMapper.selectByCommodityIDGoods(CommodityID);
+    }
+
 }

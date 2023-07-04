@@ -27,9 +27,13 @@
         select name,description,location,price,image from goods order by id
     </select>
 
+
     <!--根据条件查询-->
-    <select id="selectHotGoods"  resultMap="GoodsMap">
-        select name,description,location,price,image from goods order by id limit 8
+    <select id="selectHotGoods" resultType="pers.ervinse.domain.Goods">
+        select * from commodity_info order by CommoditySales desc limit 15;
+    </select>
+    <select id="selectByCommodityIDGoods" resultType="pers.ervinse.domain.Goods">
+        select * from commodity_info where CommodityID=#{CommodityID};
     </select>
 
 </mapper>
