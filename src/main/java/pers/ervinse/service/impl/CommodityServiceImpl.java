@@ -49,6 +49,18 @@ public class CommodityServiceImpl implements CommodityService {
         return commodityMapper.selectHotCommodity();
     }
 
+    @Override
+    public List<Commodity> getCommodityByType(int CommodityType) {
+        QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("CommodityType",CommodityType);
+        return  commodityMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<Commodity> getCommodityByName(String CommodityName) {
+        return commodityMapper.selectCommodityNameCommodities(CommodityName);
+    }
+
     /**
      * 得到药品信息
      *

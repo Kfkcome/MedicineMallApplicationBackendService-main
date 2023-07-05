@@ -18,6 +18,7 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
 
 
     List<Commodity> selectHotCommodity();
+    List<Commodity> selectCommodityNameCommodities(@Param("CommodityName") String CommodityName);
 
     Commodity selectByCommodityIDCommodity(@Param("CommodityID") Integer CommodityID);
 }

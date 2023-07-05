@@ -11,8 +11,11 @@ public interface CommodityService {
     List<Commodity> getAll();
 
     List<Commodity> getHotCommodity();
+    List<Commodity> getCommodityByType(int CommodityType);
+    List<Commodity> getCommodityByName(String CommodityName);
 
     Commodity getCommodityInfo(Integer CommodityID);
     Photo getOneCommodityPhoto(Integer CommodityID);
     List<Photo> getAllCommodityPhoto(Integer CommodityID);
+
 }

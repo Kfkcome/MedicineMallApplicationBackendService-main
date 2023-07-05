@@ -89,4 +89,20 @@ public class CommodityController {
     public ApiResponse<List<Photo>> getAllCommodityPhoto(@PathVariable Integer CommodityID){
         return ApiResponse.success(commodityService.getAllCommodityPhoto(CommodityID));
     }
+
+    /**
+     * 根据类型查询商品
+     *
+     * @param CommodityType 商品类型
+     * @return {@link ApiResponse}<{@link List}<{@link Commodity}>>
+     */
+    @GetMapping("type/{CommodityType}")
+    public ApiResponse<List<Commodity>>getCommodityByType(@PathVariable Integer CommodityType){
+        return ApiResponse.success(commodityService.getCommodityByType(CommodityType));
+    }
+    @GetMapping("name")
+    public ApiResponse<List<Commodity>>getCommodityByName(String CommodityName){
+        return ApiResponse.success(commodityService.getCommodityByName(CommodityName));
+    }
+
 }

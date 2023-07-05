@@ -16,5 +16,8 @@
         from commodity_info
         where CommodityID = #{CommodityID};
     </select>
+    <select id="selectCommodityNameCommodities" resultType="pers.ervinse.domain.Commodity">
+        select * from commodity_info where CommodityName like CONCAT('%',#{CommodityName},'%');
+    </select>
 
 </mapper>
