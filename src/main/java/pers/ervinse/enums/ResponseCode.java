@@ -25,7 +25,11 @@ public enum ResponseCode {
     USERNAME_OR_PASSWORD_ERROR(2003, "用户名或密码错误"),
     UPDATE_ERROR(2004, "没有权限修改他人地址"),
     UPDATE_ERROR_NOT_EXIT(2005, "该地址不存在无法修改"),
-    DONOT_HAVE_CART(3001, "购物车不存在"), COMMODITY_NOT_EXITS(3002, "商品不存在");
+    DONOT_HAVE_CART(3001, "购物车不存在"), COMMODITY_NOT_EXITS(3002, "商品不存在"),
+    CANNOT_GENERATE_ORDER(2500, "无此商品或商品数量为零无法创建订单"),
+    CANNOT_FIND_ORDER(2501, "查询不到此订单"),
+    CANNOT_CHANGE_OTHER_ORDER(2502, "不能删除不是本机用户的订单"),
+    ORDER_NOT_EXIT(2503, "查询不到此订单");
 
     private final int code;
 
