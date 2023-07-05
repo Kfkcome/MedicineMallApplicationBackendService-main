@@ -2,6 +2,7 @@ package pers.ervinse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.dto.CommodityDto;
 import pers.ervinse.service.ShoppingCartService;
 import pers.ervinse.utils.ApiResponse;
@@ -20,6 +21,7 @@ public class ShoppingCartController {
      *
      * @return
      */
+    @LogPrint(title = "查询购物车")
     @GetMapping("list")
     public ApiResponse listShoppingCart() {
         Integer userID = UserContextUtil.get().getUserID();

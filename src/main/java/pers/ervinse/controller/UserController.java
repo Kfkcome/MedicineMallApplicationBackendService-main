@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.Address;
 import pers.ervinse.domain.User;
-import pers.ervinse.mapper.AddressMapper;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
 import pers.ervinse.utils.UserContextUtil;
@@ -80,17 +79,20 @@ public class UserController {
         if (userInfo == null) return ApiResponse.fail(201, "没有该账号");
         return ApiResponse.success(userInfo);
     }
+
     @PostMapping("/location/add")
-    public ApiResponse addUserLocation(@RequestBody Address address){
+    public ApiResponse addUserLocation(@RequestBody Address address) {
         address.setUserID(UserContextUtil.get().getUserID());
         return userService.addUserLocation(address);
     }
+
     @GetMapping("/location/all")
-    public ApiResponse<List<Address>>getUserLocation(){
+    public ApiResponse<List<Address>> getUserLocation() {
         return ApiResponse.success(userService.getUserLocation());
     }
+
     @PutMapping("/location")
-    public ApiResponse updateUserLocation(@RequestBody Address address){
+    public ApiResponse updateUserLocation(@RequestBody Address address) {
         return userService.updateUserLocation(address);
     }
 }

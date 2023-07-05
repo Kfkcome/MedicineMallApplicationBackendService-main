@@ -9,4 +9,11 @@ import java.lang.annotation.*;
 public @interface LogPrint {
     String description() default "";
 
+    /**
+     * 操作类型
+     *
+     * @return
+     */
+    String title() default "";
+
 }
