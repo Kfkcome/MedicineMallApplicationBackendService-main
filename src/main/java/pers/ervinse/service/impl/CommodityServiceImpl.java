@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 import pers.ervinse.domain.Commodity;
 import pers.ervinse.domain.CommodityPhoto;
 import pers.ervinse.domain.Photo;
+import pers.ervinse.domain.Review;
 import pers.ervinse.mapper.CommodityMapper;
 import pers.ervinse.mapper.PhotoMapper;
+import pers.ervinse.mapper.ReviewMapper;
 import pers.ervinse.service.CommodityService;
 import pers.ervinse.utils.PhotoUtils;
 
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 @Service
 public class CommodityServiceImpl implements CommodityService {
@@ -22,11 +22,13 @@ public class CommodityServiceImpl implements CommodityService {
 
     private final CommodityMapper commodityMapper;
     private final PhotoMapper photoMapper;
+    private final ReviewMapper reviewMapper;
 
     @Autowired
-    public CommodityServiceImpl(CommodityMapper commodityMapper, PhotoMapper photoMapper) {
+    public CommodityServiceImpl(CommodityMapper commodityMapper, PhotoMapper photoMapper, ReviewMapper reviewMapper) {
         this.commodityMapper = commodityMapper;
         this.photoMapper = photoMapper;
+        this.reviewMapper = reviewMapper;
     }
 
     /**
@@ -51,9 +53,9 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public List<Commodity> getCommodityByType(int CommodityType) {
-        QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("CommodityType",CommodityType);
-        return  commodityMapper.selectList(queryWrapper);
+        QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("CommodityType", CommodityType);
+        return commodityMapper.selectList(queryWrapper);
     }
 
     @Override
@@ -76,7 +78,7 @@ public class CommodityServiceImpl implements CommodityService {
     public Photo getOneCommodityPhoto(Integer CommodityID) {
         QueryWrapper<Photo> photoQueryWrapper = new QueryWrapper<>();
         CommodityPhoto commodityPhoto = photoMapper.selectOnePhotoByCommodityID(CommodityID);
-        photoQueryWrapper.eq("PhotosID",commodityPhoto.getPhotosID());
+        photoQueryWrapper.eq("PhotosID", commodityPhoto.getPhotosID());
         //photoQueryWrapper.eq("CommodityID",commodityPhoto.getCommodityID());
         Photo photo = photoMapper.selectOne(photoQueryWrapper);
         photo.setPhotoBytes(new String(PhotoUtils.convertPhotoToByte(photo.getPhotoAddress())));
@@ -85,8 +87,8 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public List<Photo> getAllCommodityPhoto(Integer CommodityID) {
-        List<Integer> photoIDs=new ArrayList<>();
-        List<CommodityPhoto> commodityPhotos=photoMapper.selectAllPhotoByCommodityID(CommodityID);
+        List<Integer> photoIDs = new ArrayList<>();
+        List<CommodityPhoto> commodityPhotos = photoMapper.selectAllPhotoByCommodityID(CommodityID);
         for (CommodityPhoto commodityPhoto : commodityPhotos) {
             photoIDs.add(commodityPhoto.getPhotosID());
         }
@@ -95,6 +97,13 @@ public class CommodityServiceImpl implements CommodityService {
             photo.setPhotoBytes(new String(PhotoUtils.convertPhotoToByte(photo.getPhotoAddress())));
         }
         return photos;
+    }
+
+    @Override
+    public List<Review> getCommodityReview(Integer CommodityID) {
+        QueryWrapper<Review> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("CommodityID", CommodityID);
+        return reviewMapper.selectList(queryWrapper);
     }
 
 }

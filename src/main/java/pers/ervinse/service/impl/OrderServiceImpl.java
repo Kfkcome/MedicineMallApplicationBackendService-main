@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pers.ervinse.domain.Commodity;
 import pers.ervinse.domain.Order;
+import pers.ervinse.domain.Review;
 import pers.ervinse.enums.ResponseCode;
 import pers.ervinse.mapper.CommodityMapper;
 import pers.ervinse.mapper.OrderMapper;
+import pers.ervinse.mapper.ReviewMapper;
 import pers.ervinse.service.OrderService;
 import pers.ervinse.utils.ApiResponse;
-import pers.ervinse.utils.DateTimeUtils;
 import pers.ervinse.utils.UserContextUtil;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 
@@ -28,11 +28,13 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final CommodityMapper commodityMapper;
+    private final ReviewMapper reviewMapper;
 
     @Autowired
-    public OrderServiceImpl(OrderMapper orderMapper, CommodityMapper commodityMapper) {
+    public OrderServiceImpl(OrderMapper orderMapper, CommodityMapper commodityMapper, ReviewMapper reviewMapper) {
         this.orderMapper = orderMapper;
         this.commodityMapper = commodityMapper;
+        this.reviewMapper = reviewMapper;
     }
 
     /**
@@ -126,5 +128,14 @@ public class OrderServiceImpl implements OrderService {
             return ApiResponse.fail(ResponseCode.CANNOT_CHANGE_OTHER_ORDER);
         }
         return ApiResponse.success(orderMapper.update(null, updateWrapper));
+    }
+
+    @Override
+    public ApiResponse<Integer> reviewToOrder(Review review) {
+        review.setReviewID(null);
+        review.setUserID(UserContextUtil.get().getUserID());
+        int insert = reviewMapper.insert(review);
+        if (insert == 0) return ApiResponse.fail(ResponseCode.INSERT_ERROR);
+        return ApiResponse.success(insert);
     }
 }

@@ -30,7 +30,9 @@ public enum ResponseCode {
     CANNOT_FIND_ORDER(2501, "查询不到此订单"),
     CANNOT_CHANGE_OTHER_ORDER(2502, "不能删除不是本机用户的订单"),
     ORDER_NOT_EXIT(2503, "查询不到此订单"),
-    LOGISTICS_NOT_EXIT(2030, "查询不到该订单的物流活动");
+    LOGISTICS_NOT_EXIT(2030, "查询不到该订单的物流活动"),
+    INSERT_ERROR(2010, "插入失败"),
+    REVIEW_NOT_EXIT(2020, "查询不到评论");
 
     private final int code;
 

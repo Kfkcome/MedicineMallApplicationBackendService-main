@@ -3,6 +3,7 @@ package pers.ervinse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pers.ervinse.domain.Order;
+import pers.ervinse.domain.Review;
 import pers.ervinse.enums.ResponseCode;
 import pers.ervinse.service.OrderService;
 import pers.ervinse.utils.ApiResponse;
@@ -68,5 +69,10 @@ public class OrderController {
     @PutMapping("/pay/{OrderID}")
     ApiResponse payOrder(@PathVariable Integer OrderID) {
         return orderService.payOrder(OrderID);
+    }
+
+    @PostMapping("/review")
+    ApiResponse reviewOrder(@RequestBody Review review) {
+        return orderService.reviewToOrder(review);
     }
 }

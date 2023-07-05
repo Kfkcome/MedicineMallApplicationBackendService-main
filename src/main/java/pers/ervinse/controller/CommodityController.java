@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.Commodity;
 import pers.ervinse.domain.Photo;
+import pers.ervinse.domain.Review;
+import pers.ervinse.enums.ResponseCode;
 import pers.ervinse.service.CommodityService;
 import pers.ervinse.utils.ApiResponse;
 
@@ -78,7 +80,7 @@ public class CommodityController {
      */
     @LogPrint
     @GetMapping("/MedicinePicture/{CommodityID}")
-    public ApiResponse<Photo> getCommodityPhoto(@PathVariable Integer CommodityID){
+    public ApiResponse<Photo> getCommodityPhoto(@PathVariable Integer CommodityID) {
         return ApiResponse.success(commodityService.getOneCommodityPhoto(CommodityID));
     }
 
@@ -89,7 +91,7 @@ public class CommodityController {
      * @return {@link ApiResponse}<{@link List}<{@link Photo}>>
      */
     @GetMapping("AllMedicinePicture/{CommodityID}")
-    public ApiResponse<List<Photo>> getAllCommodityPhoto(@PathVariable Integer CommodityID){
+    public ApiResponse<List<Photo>> getAllCommodityPhoto(@PathVariable Integer CommodityID) {
         return ApiResponse.success(commodityService.getAllCommodityPhoto(CommodityID));
     }
 
@@ -100,12 +102,23 @@ public class CommodityController {
      * @return {@link ApiResponse}<{@link List}<{@link Commodity}>>
      */
     @GetMapping("type/{CommodityType}")
-    public ApiResponse<List<Commodity>>getCommodityByType(@PathVariable Integer CommodityType){
+    public ApiResponse<List<Commodity>> getCommodityByType(@PathVariable Integer CommodityType) {
         return ApiResponse.success(commodityService.getCommodityByType(CommodityType));
     }
+
     @GetMapping("name")
-    public ApiResponse<List<Commodity>>getCommodityByName(String CommodityName){
+    public ApiResponse<List<Commodity>> getCommodityByName(String CommodityName) {
         return ApiResponse.success(commodityService.getCommodityByName(CommodityName));
     }
+
+    @GetMapping("review/{CommodityID}")
+    public ApiResponse<List<Review>> getCommodityReview(@PathVariable Integer CommodityID) {
+        List<Review> commodityReview = commodityService.getCommodityReview(CommodityID);
+        if (commodityReview == null || commodityReview.isEmpty()) {
+            return ApiResponse.fail(ResponseCode.REVIEW_NOT_EXIT);
+        }
+        return ApiResponse.success(commodityReview);
+    }
+
 
 }
