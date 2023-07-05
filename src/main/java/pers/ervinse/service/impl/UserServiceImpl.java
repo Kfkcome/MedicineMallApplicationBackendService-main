@@ -1,9 +1,11 @@
 package pers.ervinse.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pers.ervinse.controller.UserController;
 import pers.ervinse.domain.Address;
 import pers.ervinse.domain.User;
 import pers.ervinse.enums.ResponseCode;
@@ -12,6 +14,7 @@ import pers.ervinse.mapper.UserMapper;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
 import pers.ervinse.utils.JwtUtil;
+import pers.ervinse.utils.UserContextUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -99,7 +102,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApiResponse addUserLocation(Address address) {
-        return null;
+        address.setAddressID(null);
+        return ApiResponse.success(addressMapper.insert(address));
+    }
+
+    @Override
+    public List<Address> getUserLocation() {
+        QueryWrapper<Address> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("UserID", UserContextUtil.get().getUserID());
+        return addressMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public ApiResponse updateUserLocation(Address address) {
+        if(address.getUserID()!=null&&address.getUserID()!=UserContextUtil.get().getUserID()){return ApiResponse.fail(ResponseCode.UPDATE_ERROR);}
+        UpdateWrapper<Address> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.eq("UserID",UserContextUtil.get().getUserID()).eq("AddressID",address.getAddressID());
+        int update = addressMapper.update(address, updateWrapper);
+        if(update!=0)
+        return ApiResponse.success(update);
+        else return ApiResponse.fail(ResponseCode.UPDATE_ERROR_NOT_EXIT);
     }
 
 

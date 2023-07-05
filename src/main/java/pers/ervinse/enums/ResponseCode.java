@@ -22,7 +22,9 @@ public enum ResponseCode {
 
     INVALID_TOKEN(2001, "访问令牌不合法"),
     ACCESS_DENIED(2002, "没有权限访问该资源"),
-    USERNAME_OR_PASSWORD_ERROR(2003, "用户名或密码错误");
+    USERNAME_OR_PASSWORD_ERROR(2003, "用户名或密码错误"),
+    UPDATE_ERROR(2004,"没有权限修改他人地址"),
+    UPDATE_ERROR_NOT_EXIT(2005,"该地址不存在无法修改");
 
     private final int code;
 

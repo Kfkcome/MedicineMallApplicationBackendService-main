@@ -4,6 +4,8 @@ import pers.ervinse.domain.Address;
 import pers.ervinse.domain.User;
 import pers.ervinse.utils.ApiResponse;
 
+import java.util.List;
+
 public interface UserService {
 
     ApiResponse login(User user);
@@ -12,4 +14,6 @@ public interface UserService {
 
     User getUserInfo(String name);
     ApiResponse addUserLocation(Address address);
+    List<Address> getUserLocation();
+    ApiResponse updateUserLocation(Address address);
 }
