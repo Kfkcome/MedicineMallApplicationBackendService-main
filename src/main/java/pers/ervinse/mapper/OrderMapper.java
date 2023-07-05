@@ -2,6 +2,7 @@ package pers.ervinse.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import pers.ervinse.domain.Order;
 
 /**
@@ -10,6 +11,7 @@ import pers.ervinse.domain.Order;
  * @createDate 2023-07-05 10:55:30
  * @Entity .domain.Order
  */
+@Mapper
 public interface OrderMapper extends BaseMapper<Order> {
 
 }

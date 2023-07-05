@@ -43,7 +43,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         wrapper.eq(ShoppingCart::getUserID, userID);
         ShoppingCart shoppingCart = shoppingCartMapper.selectOne(wrapper);
         if (shoppingCart == null) {
-            throw new SystemException(ResponseCode.DONOT_HAVE_CART);
+            //throw new SystemException(ResponseCode.DONOT_HAVE_CART);
         }
         List list = shoppingcartCommodityMapper.selectListByShoppingCartID(shoppingCart.getShoppingCartID());
 

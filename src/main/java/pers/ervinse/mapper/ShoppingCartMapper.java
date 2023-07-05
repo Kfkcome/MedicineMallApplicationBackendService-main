@@ -1,6 +1,7 @@
 package pers.ervinse.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import pers.ervinse.domain.ShoppingCart;
 
 /**
@@ -9,6 +10,7 @@ import pers.ervinse.domain.ShoppingCart;
  * @createDate 2023-07-05 11:02:16
  * @Entity .domain.Shoppingcart
  */
+@Mapper
 public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
 
 }
