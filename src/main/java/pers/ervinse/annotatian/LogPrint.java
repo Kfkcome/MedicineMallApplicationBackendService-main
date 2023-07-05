@@ -1,4 +1,4 @@
-package pers.ervinse.utils;
+package pers.ervinse.annotatian;
 
 
 import java.lang.annotation.*;

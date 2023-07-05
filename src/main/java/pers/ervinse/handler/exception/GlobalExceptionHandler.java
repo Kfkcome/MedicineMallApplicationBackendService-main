@@ -16,6 +16,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ApiResponse exceptionHandler(Exception e) {
-        return ApiResponse.fail(ResponseCode.ERROR.getCode(), e.getMessage());
+        return ApiResponse.fail(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), e.getMessage());
     }
 }

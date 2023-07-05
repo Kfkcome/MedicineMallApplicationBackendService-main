@@ -1,5 +1,4 @@
-package pers.ervinse.utils;
-
+package pers.ervinse.aspect;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import pers.ervinse.annotatian.LogPrint;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public class LogPrintAspect {
     /**
      * 以自定义 @LogPrint 注解为切点
      */
-    @Pointcut("@annotation(pers.ervinse.utils.LogPrint)")
+    @Pointcut("@annotation(pers.ervinse.annotatian.LogPrint)")
     public void logPrint() {
     }
 
