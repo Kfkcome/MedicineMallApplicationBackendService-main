@@ -76,6 +76,7 @@ public class CommodityController {
      * @param CommodityID 商品id
      * @return {@link ApiResponse}<{@link Photo}>
      */
+    @LogPrint
     @GetMapping("/MedicinePicture/{CommodityID}")
     public ApiResponse<Photo> getCommodityPhoto(@PathVariable Integer CommodityID){
         return ApiResponse.success(commodityService.getOneCommodityPhoto(CommodityID));
