@@ -54,6 +54,54 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ApiResponse addCommodity(CommodityDto commodityDto) {
 
+        ShoppingcartCommodity shoppingcartCommodity = getShoppingcartCommodity(commodityDto);
+
+        int i = shoppingcartCommodityMapper.insert(shoppingcartCommodity);
+        if (i == 0) {
+            throw new SystemException(ResponseCode.FAILURE);
+        }
+        return ApiResponse.success();
+    }
+
+    @Transactional
+    @Override
+    public ApiResponse deleteCommodity(Integer commodityID) {
+
+        ShoppingCart shoppingCart = shoppingCartMapper.selectOne(new LambdaQueryWrapper<ShoppingCart>()
+                .eq(ShoppingCart::getUserID, UserContextUtil.get().getUserID()));
+
+        Integer shoppingCartID = shoppingCart.getShoppingCartID();
+
+        LambdaQueryWrapper<ShoppingcartCommodity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ShoppingcartCommodity::getCommodityid, commodityID);
+        wrapper.eq(ShoppingcartCommodity::getShoppingcartid, shoppingCartID);
+
+        int delete = shoppingcartCommodityMapper.delete(wrapper);
+
+        if (delete == 0)
+            throw new SystemException(ResponseCode.COMMODITY_NOT_EXITS);
+        return ApiResponse.success();
+    }
+
+    @Transactional
+    @Override
+    public ApiResponse updateCommodity(CommodityDto commodityDto) {
+
+        ShoppingcartCommodity shoppingcartCommodity = getShoppingcartCommodity(commodityDto);
+        int i = shoppingcartCommodityMapper.update(shoppingcartCommodity);
+        if (i == 0) {
+            throw new SystemException(ResponseCode.COMMODITY_NOT_EXITS);
+        }
+        return ApiResponse.success();
+    }
+
+    /**
+     * 获取将更新的购物车商品
+     *
+     * @param commodityDto
+     * @return
+     */
+    private ShoppingcartCommodity getShoppingcartCommodity(CommodityDto commodityDto) {
         if (ObjectUtil.isNull(commodityDto)) {
             throw new SystemException(ResponseCode.PARAM_ERROR);
         }
@@ -74,12 +122,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingcartCommodity.setShoppingcartid(shoppingCart.getShoppingCartID());
         shoppingcartCommodity.setCommodityid(commodityDto.getCommodityID());
         shoppingcartCommodity.setCommoditynum(commodityDto.getCommodityNum());
-
-        int i = shoppingcartCommodityMapper.insert(shoppingcartCommodity);
-        if (i == 0) {
-            throw new SystemException(ResponseCode.FAILURE);
-        }
-        return ApiResponse.success();
+        return shoppingcartCommodity;
     }
 }
 

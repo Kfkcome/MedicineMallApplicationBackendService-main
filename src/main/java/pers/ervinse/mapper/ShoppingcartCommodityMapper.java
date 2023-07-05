@@ -15,6 +15,8 @@ import java.util.List;
 public interface ShoppingcartCommodityMapper extends BaseMapper<ShoppingcartCommodity> {
 
     List<CommodityVo> selectListByShoppingCartID(Integer shoppingCartID);
+
+    int update(ShoppingcartCommodity shoppingcartCommodity);
 }
 
 

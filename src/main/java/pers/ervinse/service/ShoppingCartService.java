@@ -13,4 +13,8 @@ public interface ShoppingCartService {
     ApiResponse listByUserId(Integer userID);
 
     ApiResponse addCommodity(CommodityDto commodityDto);
+
+    ApiResponse deleteCommodity(Integer commodityID);
+
+    ApiResponse updateCommodity(CommodityDto commodityDto);
 }

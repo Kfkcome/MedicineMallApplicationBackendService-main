@@ -11,8 +11,8 @@ spring:
 #开启mybatis-plus日志
 mybatis-plus:
   configuration:
-    #  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    #  #开启自动驼峰命名规则（camel case）映射
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #开启自动驼峰命名规则（camel case）映射
     mapUnderscoreToCamelCase: false
 
 mybatis:
