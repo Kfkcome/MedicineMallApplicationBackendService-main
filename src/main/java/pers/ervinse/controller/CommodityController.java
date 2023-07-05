@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.Commodity;
 import pers.ervinse.domain.Photo;
 import pers.ervinse.service.CommodityService;
@@ -50,6 +51,7 @@ public class CommodityController {
      *
      * @return {@link List}<{@link Commodity}>
      */
+    @LogPrint
     @GetMapping("/hotMedicine")
     public ApiResponse<List<Commodity>> getHotCommodity() {
         log.info("getHotMedicine");
@@ -89,4 +91,20 @@ public class CommodityController {
     public ApiResponse<List<Photo>> getAllCommodityPhoto(@PathVariable Integer CommodityID){
         return ApiResponse.success(commodityService.getAllCommodityPhoto(CommodityID));
     }
+
+    /**
+     * 根据类型查询商品
+     *
+     * @param CommodityType 商品类型
+     * @return {@link ApiResponse}<{@link List}<{@link Commodity}>>
+     */
+    @GetMapping("type/{CommodityType}")
+    public ApiResponse<List<Commodity>>getCommodityByType(@PathVariable Integer CommodityType){
+        return ApiResponse.success(commodityService.getCommodityByType(CommodityType));
+    }
+    @GetMapping("name")
+    public ApiResponse<List<Commodity>>getCommodityByName(String CommodityName){
+        return ApiResponse.success(commodityService.getCommodityByName(CommodityName));
+    }
+
 }

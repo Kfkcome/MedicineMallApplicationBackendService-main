@@ -4,7 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pers.ervinse.annotatian.LogPrint;
+import pers.ervinse.domain.Address;
 import pers.ervinse.domain.User;
+import pers.ervinse.mapper.AddressMapper;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
 
@@ -15,6 +17,7 @@ import pers.ervinse.utils.ApiResponse;
 public class UserController {
 
     private final UserService userService;
+
 
     @Autowired
     public UserController(UserService userService) {
@@ -73,5 +76,9 @@ public class UserController {
         User userInfo = userService.getUserInfo(UserAccount);
         if (userInfo == null) return ApiResponse.fail(201, "没有该账号");
         return ApiResponse.success(userInfo);
+    }
+    @PostMapping("/location")
+    public ApiResponse addUserLocation(@RequestBody Address address){
+        return ApiResponse.success();
     }
 }

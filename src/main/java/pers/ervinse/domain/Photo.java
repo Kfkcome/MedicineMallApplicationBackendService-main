@@ -1,6 +1,7 @@
 package pers.ervinse.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("photo")
 public class Photo {
+    @TableId()
     Integer PhotosID;
     String PhotoAddress;//图片地址
     @TableField(exist = false)
