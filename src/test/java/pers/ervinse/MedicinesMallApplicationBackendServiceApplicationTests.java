@@ -9,6 +9,12 @@ import pers.ervinse.domain.User;
 import pers.ervinse.mapper.CommodityMapper;
 import pers.ervinse.mapper.UserMapper;
 import pers.ervinse.service.UserService;
+import pers.ervinse.utils.PhotoUtils;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
 
 @SpringBootTest
 class MedicinesMallApplicationBackendServiceApplicationTests {
@@ -38,6 +44,11 @@ class MedicinesMallApplicationBackendServiceApplicationTests {
         for (Commodity selectHotGood : commodityMapper.selectHotCommodity()) {
             System.out.println(selectHotGood.getCommodityName());
         }
+    }
+    @Test
+    void testReadPhoto(){
+        System.out.println(Arrays.toString(PhotoUtils.convertPhotoToByte("src/main/resources/MedicinePicture/999感冒灵.png")));
+
     }
 
 }

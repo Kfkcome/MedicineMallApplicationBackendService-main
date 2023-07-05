@@ -8,6 +8,12 @@ import pers.ervinse.domain.User;
 import java.util.List;
 
 
+/**
+ * 用户映射器
+ *
+ * @author kfk
+ * @date 2023/07/05
+ */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
     User searchAllByUserAccountAndUserPasswordUser(@Param("UserAccount") String Account,@Param("UserPassword") String Password);

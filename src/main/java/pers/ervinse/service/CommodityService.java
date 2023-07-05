@@ -1,6 +1,8 @@
 package pers.ervinse.service;
 
 import pers.ervinse.domain.Commodity;
+import pers.ervinse.domain.Photo;
+import pers.ervinse.mapper.PhotoMapper;
 
 import java.util.List;
 
@@ -10,5 +12,7 @@ public interface CommodityService {
 
     List<Commodity> getHotCommodity();
 
-    Commodity getGoodInfo(Integer CommodityID);
+    Commodity getCommodityInfo(Integer CommodityID);
+    Photo getOneCommodityPhoto(Integer CommodityID);
+    List<Photo> getAllCommodityPhoto(Integer CommodityID);
 }
