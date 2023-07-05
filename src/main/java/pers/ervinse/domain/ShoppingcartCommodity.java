@@ -1,10 +1,13 @@
 package pers.ervinse.domain;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 
 /**
  * @TableName shoppingcart_commodity
  */
+@TableName("shoppingcart_commodity")
 public class ShoppingcartCommodity implements Serializable {
 
     /**

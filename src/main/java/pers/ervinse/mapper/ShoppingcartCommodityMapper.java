@@ -2,6 +2,9 @@ package pers.ervinse.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import pers.ervinse.domain.ShoppingcartCommodity;
+import pers.ervinse.domain.vo.CommodityVo;
+
+import java.util.List;
 
 /**
  * @author YangLin
@@ -11,6 +14,7 @@ import pers.ervinse.domain.ShoppingcartCommodity;
  */
 public interface ShoppingcartCommodityMapper extends BaseMapper<ShoppingcartCommodity> {
 
+    List<CommodityVo> selectListByShoppingCartID(Integer shoppingCartID);
 }
 
 

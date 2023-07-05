@@ -9,4 +9,11 @@
         CommodityID
         ,ShoppingCartID,CommodityNum
     </sql>
+    <select id="selectListByShoppingCartID" resultType="pers.ervinse.domain.vo.CommodityVo">
+        select ci.*, sc.CommodityNum
+        from shoppingcart_commodity sc
+                 left join commodity_info ci on sc.CommodityID = ci.CommodityID
+        where sc.ShoppingCartID = #{shoppingCartID}
+    </select>
+
 </mapper>

@@ -1,11 +1,16 @@
 package pers.ervinse.domain;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @TableName order_info
  */
+@Data
+@TableName("order_info")
 public class Order implements Serializable {
 
     /**
