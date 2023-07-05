@@ -1,6 +1,7 @@
 package pers.ervinse.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -8,6 +9,7 @@ import java.io.Serializable;
  * @TableName shoppingcart_commodity
  */
 @TableName("shoppingcart_commodity")
+@Data
 public class ShoppingcartCommodity implements Serializable {
 
     /**

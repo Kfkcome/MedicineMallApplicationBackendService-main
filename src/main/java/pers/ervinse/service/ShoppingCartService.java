@@ -1,5 +1,6 @@
 package pers.ervinse.service;
 
+import pers.ervinse.domain.dto.CommodityDto;
 import pers.ervinse.utils.ApiResponse;
 
 /**
@@ -10,4 +11,6 @@ import pers.ervinse.utils.ApiResponse;
 public interface ShoppingCartService {
 
     ApiResponse listByUserId(Integer userID);
+
+    ApiResponse addCommodity(CommodityDto commodityDto);
 }
