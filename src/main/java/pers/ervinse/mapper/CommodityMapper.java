@@ -7,6 +7,12 @@ import pers.ervinse.domain.Commodity;
 
 import java.util.List;
 
+/**
+ * 商品映射器
+ *
+ * @author kfk
+ * @date 2023/07/05
+ */
 @Mapper
 public interface CommodityMapper extends BaseMapper<Commodity> {
 

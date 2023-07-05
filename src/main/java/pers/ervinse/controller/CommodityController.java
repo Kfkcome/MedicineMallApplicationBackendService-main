@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pers.ervinse.domain.Commodity;
+import pers.ervinse.domain.Photo;
 import pers.ervinse.service.CommodityService;
 import pers.ervinse.utils.ApiResponse;
 
@@ -56,13 +57,36 @@ public class CommodityController {
     }
 
     /**
+     * 获得商品信息
      * 获取详细商品信息
      *
      * @param CommodityID 商品id
-     * @return {@link Commodity}
+     * @return {@link ApiResponse}<{@link Commodity}>
      */
     @GetMapping("/MedicineInfo/{CommodityID}")
-    public ApiResponse<Commodity> getGoodInfo(@PathVariable Integer CommodityID) {
-        return ApiResponse.success(commodityService.getGoodInfo(CommodityID));
+    public ApiResponse<Commodity> getCommodityInfo(@PathVariable Integer CommodityID) {
+        return ApiResponse.success(commodityService.getCommodityInfo(CommodityID));
+    }
+
+    /**
+     * 获得商品照片
+     *
+     * @param CommodityID 商品id
+     * @return {@link ApiResponse}<{@link Photo}>
+     */
+    @GetMapping("/MedicinePicture/{CommodityID}")
+    public ApiResponse<Photo> getCommodityPhoto(@PathVariable Integer CommodityID){
+        return ApiResponse.success(commodityService.getOneCommodityPhoto(CommodityID));
+    }
+
+    /**
+     * 把所有商品照片
+     *
+     * @param CommodityID 商品id
+     * @return {@link ApiResponse}<{@link List}<{@link Photo}>>
+     */
+    @GetMapping("AllMedicinePicture/{CommodityID}")
+    public ApiResponse<List<Photo>> getAllCommodityPhoto(@PathVariable Integer CommodityID){
+        return ApiResponse.success(commodityService.getAllCommodityPhoto(CommodityID));
     }
 }

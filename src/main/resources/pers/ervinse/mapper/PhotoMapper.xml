@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.ervinse.mapper.PhotoMapper">
+
+    <select id="selectAllPhotoByCommodityID" resultType="pers.ervinse.domain.CommodityPhoto">
+        select * from medicine_photo where CommodityID=#{CommodityID};
+    </select>
+    <select id="selectOnePhotoByCommodityID" resultType="pers.ervinse.domain.CommodityPhoto">
+        select * from medicine_photo  where CommodityID=#{CommodityID} order by PhotosID limit 1;
+    </select>
+</mapper>
