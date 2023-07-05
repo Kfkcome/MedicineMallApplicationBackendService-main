@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pers.ervinse.domain.Address;
 import pers.ervinse.domain.User;
 import pers.ervinse.enums.ResponseCode;
+import pers.ervinse.mapper.AddressMapper;
 import pers.ervinse.mapper.UserMapper;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
@@ -20,12 +22,15 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
+    private final AddressMapper addressMapper;
     @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper) {
+    public UserServiceImpl(UserMapper userMapper, AddressMapper addressMapper, JwtUtil jwtUtil) {
         this.userMapper = userMapper;
+        this.addressMapper = addressMapper;
+        this.jwtUtil = jwtUtil;
     }
 
     /**
@@ -90,6 +95,11 @@ public class UserServiceImpl implements UserService {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("UserAccount", UserAccount);
         return userMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public ApiResponse addUserLocation(Address address) {
+        return null;
     }
 
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.Commodity;
 import pers.ervinse.domain.Photo;
 import pers.ervinse.service.CommodityService;
@@ -50,6 +51,7 @@ public class CommodityController {
      *
      * @return {@link List}<{@link Commodity}>
      */
+    @LogPrint
     @GetMapping("/hotMedicine")
     public ApiResponse<List<Commodity>> getHotCommodity() {
         log.info("getHotMedicine");
