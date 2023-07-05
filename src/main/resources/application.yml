@@ -25,3 +25,6 @@ mybatis:
 page helper:
   helper-dialect: mysql
 
+jwt:
+  secret: 52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain
+  expiration: 604800

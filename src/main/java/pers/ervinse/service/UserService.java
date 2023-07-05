@@ -1,10 +1,11 @@
 package pers.ervinse.service;
 
 import pers.ervinse.domain.User;
+import pers.ervinse.utils.ApiResponse;
 
 public interface UserService {
 
-    boolean login(User user);
+    ApiResponse login(User user);
 
     int register(User user);
 

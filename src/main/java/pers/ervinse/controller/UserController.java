@@ -3,10 +3,10 @@ package pers.ervinse.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.User;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
-import pers.ervinse.utils.LogPrint;
 
 
 @Slf4j
@@ -29,10 +29,10 @@ public class UserController {
      */
     @LogPrint
     @PostMapping("/login")
-    public ApiResponse<Boolean> login(@RequestBody User user) {
+    public ApiResponse login(@RequestBody User user) {
 
         log.info("login :" + user);
-        return ApiResponse.success(userService.login(user));
+        return userService.login(user);
     }
 
     /**
