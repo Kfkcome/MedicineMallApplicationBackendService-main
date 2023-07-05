@@ -14,5 +14,5 @@ public class CommodityVo {
     /**
      * 商品数量
      */
-    private Integer commoditynum;
+    private Integer CommodityNum;
 }

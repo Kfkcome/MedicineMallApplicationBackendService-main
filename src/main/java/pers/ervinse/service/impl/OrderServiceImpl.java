@@ -101,6 +101,8 @@ public class OrderServiceImpl implements OrderService {
             return ApiResponse.fail(ResponseCode.ORDER_NOT_EXIT);
         } else if (!order.getUserID().equals(UserContextUtil.get().getUserID())) {
             return ApiResponse.fail(ResponseCode.CANNOT_CHANGE_OTHER_ORDER);
+        } else if (order.getOrderPayState().equals(1)) {
+            return ApiResponse.fail(2505, "无法删除已经支付订单，请联系管理员删除");
         }
         return ApiResponse.success(orderMapper.delete(queryWrapper));
     }

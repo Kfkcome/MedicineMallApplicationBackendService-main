@@ -73,8 +73,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Integer shoppingCartID = shoppingCart.getShoppingCartID();
 
         LambdaQueryWrapper<ShoppingcartCommodity> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(ShoppingcartCommodity::getCommodityid, commodityID);
-        wrapper.eq(ShoppingcartCommodity::getShoppingcartid, shoppingCartID);
+        wrapper.eq(ShoppingcartCommodity::getCommodityID, commodityID);
+        wrapper.eq(ShoppingcartCommodity::getShoppingcartID, shoppingCartID);
 
         int delete = shoppingcartCommodityMapper.delete(wrapper);
 
@@ -119,9 +119,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             throw new SystemException(ResponseCode.COMMODITY_NOT_EXITS);
         }
 
-        shoppingcartCommodity.setShoppingcartid(shoppingCart.getShoppingCartID());
-        shoppingcartCommodity.setCommodityid(commodityDto.getCommodityID());
-        shoppingcartCommodity.setCommoditynum(commodityDto.getCommodityNum());
+        shoppingcartCommodity.setShoppingcartID(shoppingCart.getShoppingCartID());
+        shoppingcartCommodity.setCommodityID(commodityDto.getCommodityID());
+        shoppingcartCommodity.setCommodityNum(commodityDto.getCommodityNum());
         return shoppingcartCommodity;
     }
 }

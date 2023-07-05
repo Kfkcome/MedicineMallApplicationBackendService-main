@@ -15,14 +15,14 @@ public class ShoppingcartCommodity implements Serializable {
     /**
      * 商品id
      */
-    private Integer commodityid;
+    private Integer CommodityID;
     /**
      * 购物车id
      */
-    private Integer shoppingcartid;
+    private Integer ShoppingcartID;
     /**
      * 商品数量
      */
-    private Integer commoditynum;
+    private Integer CommodityNum;
 
 }

@@ -29,7 +29,8 @@ public enum ResponseCode {
     CANNOT_GENERATE_ORDER(2500, "无此商品或商品数量为零无法创建订单"),
     CANNOT_FIND_ORDER(2501, "查询不到此订单"),
     CANNOT_CHANGE_OTHER_ORDER(2502, "不能删除不是本机用户的订单"),
-    ORDER_NOT_EXIT(2503, "查询不到此订单");
+    ORDER_NOT_EXIT(2503, "查询不到此订单"),
+    LOGISTICS_NOT_EXIT(2030, "查询不到该订单的物流活动");
 
     private final int code;
 
