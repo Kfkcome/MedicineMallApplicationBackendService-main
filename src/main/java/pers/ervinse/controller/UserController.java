@@ -95,4 +95,6 @@ public class UserController {
     public ApiResponse updateUserLocation(@RequestBody Address address) {
         return userService.updateUserLocation(address);
     }
+    @PostMapping("head")
+    public ApiResponse updateUserHead(){return null;}
 }

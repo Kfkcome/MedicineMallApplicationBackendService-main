@@ -56,8 +56,11 @@ public class LogPrintAspect {
         String type = logPrint.title();
 
         String description = logPrint.description();
-
-        Integer userId = UserContextUtil.get().getUserID();
+        Integer userId;
+        if (UserContextUtil.get() == null)
+            userId = null;
+        else userId = UserContextUtil.get().getUserID();
+        //TODO:user为空是日志的书写方式
 
         String url = request.getRequestURL().toString();
 

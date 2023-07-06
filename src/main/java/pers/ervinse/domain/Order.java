@@ -14,7 +14,7 @@ import java.util.Date;
 @TableName("order_info")
 public class Order implements Serializable {
     private Integer OrderID;//订单id
-    private Integer LogisticsID;//日志id
+    private Integer LogisticsID;//物流id
     private Integer OrLogID;
     private Integer CommodityID;
     private Integer UserID;

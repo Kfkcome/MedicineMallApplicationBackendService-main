@@ -138,4 +138,14 @@ public class OrderServiceImpl implements OrderService {
         if (insert == 0) return ApiResponse.fail(ResponseCode.INSERT_ERROR);
         return ApiResponse.success(insert);
     }
+
+    @Override
+    public ApiResponse confirmOrder(Integer OrderID) {
+        UpdateWrapper<Order> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("OrderID", OrderID);
+        updateWrapper.eq("UserID", UserContextUtil.get().getUserID());
+        updateWrapper.set("OrderPayState", 4);//切换订单为待评价状态
+
+        return ApiResponse.success(orderMapper.update(null, updateWrapper));
+    }
 }

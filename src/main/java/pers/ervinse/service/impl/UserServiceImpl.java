@@ -108,20 +108,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Address> getUserLocation() {
-        QueryWrapper<Address> queryWrapper=new QueryWrapper<>();
+        QueryWrapper<Address> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserID", UserContextUtil.get().getUserID());
         return addressMapper.selectList(queryWrapper);
     }
 
     @Override
     public ApiResponse updateUserLocation(Address address) {
-        if(address.getUserID()!=null&&address.getUserID()!=UserContextUtil.get().getUserID()){return ApiResponse.fail(ResponseCode.UPDATE_ERROR);}
-        UpdateWrapper<Address> updateWrapper=new UpdateWrapper<>();
-        updateWrapper.eq("UserID",UserContextUtil.get().getUserID()).eq("AddressID",address.getAddressID());
+        if (address.getUserID() != null && address.getUserID().equals(UserContextUtil.get().getUserID())) {
+            return ApiResponse.fail(ResponseCode.UPDATE_ERROR);
+        }
+        UpdateWrapper<Address> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("UserID", UserContextUtil.get().getUserID()).eq("AddressID", address.getAddressID());
         int update = addressMapper.update(address, updateWrapper);
-        if(update!=0)
-        return ApiResponse.success(update);
+        if (update != 0)
+            return ApiResponse.success(update);
         else return ApiResponse.fail(ResponseCode.UPDATE_ERROR_NOT_EXIT);
+    }
+
+    @Override
+    public ApiResponse addUserPhoto() {
+        return null;
     }
 
 

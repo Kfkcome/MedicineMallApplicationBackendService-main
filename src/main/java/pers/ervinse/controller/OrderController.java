@@ -75,4 +75,9 @@ public class OrderController {
     ApiResponse reviewOrder(@RequestBody Review review) {
         return orderService.reviewToOrder(review);
     }
+
+    @PutMapping("/confirm/{OrderID}")
+    ApiResponse confirmOrder(@PathVariable Integer OrderID) {
+        return orderService.confirmOrder(OrderID);
+    }
 }

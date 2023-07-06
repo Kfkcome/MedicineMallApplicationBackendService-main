@@ -18,4 +18,6 @@ public interface OrderService {
     ApiResponse payOrder(Integer OrderID);
 
     ApiResponse reviewToOrder(Review review);
+
+    ApiResponse confirmOrder(Integer OrderID);
 }

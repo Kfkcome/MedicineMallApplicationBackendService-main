@@ -13,7 +13,12 @@ public interface UserService {
     int register(User user);
 
     User getUserInfo(String name);
+
     ApiResponse addUserLocation(Address address);
+
     List<Address> getUserLocation();
+
     ApiResponse updateUserLocation(Address address);
+
+    ApiResponse addUserPhoto();
 }
