@@ -121,10 +121,13 @@ public class ResourcesConfig implements WebMvcConfigurer {
         registration.excludePathPatterns(    //添加不拦截路径
                 "/users/login",                    //登录路径
                 "/users/register",                    //登录路径
+                "/users/head",                  //获取用户头像
                 "/**/*.html",                //html静态资源
                 "/**/*.js",                  //js静态资源
                 "/**/*.css",                //css静态资源
-                "/medicines/**"            //查询商品不需要登录
+                "/tip/**",                  //健康小知识的获取
+                "/medicines/**",            //查询商品不需要登录
+                "/merchant/**"              //商家信息
         ).excludePathPatterns("/hello/xt");
     }
 }
