@@ -11,9 +11,9 @@
     </sql>
     <update id="update">
         update shoppingcart_commodity
-        set CommodityNum=#{commoditynum}
-        where ShoppingCartID = #{shoppingcartid}
-          and CommodityID = #{commodityid}
+        set CommodityNum=#{CommodityNum}
+        where ShoppingCartID = #{ShoppingcartID}
+          and CommodityID = #{CommodityID}
     </update>
     <select id="selectListByShoppingCartID" resultType="pers.ervinse.domain.vo.CommodityVo">
         select ci.*, sc.CommodityNum

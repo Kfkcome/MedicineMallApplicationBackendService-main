@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CommodityDto {
-    private Integer commodityID;
-    private Integer commodityNum;
+    private Integer CommodityID;
+    private Integer CommodityNum;
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pers.ervinse.domain.Order;
 import pers.ervinse.domain.Review;
+import pers.ervinse.domain.dto.LogisticsInfoAll;
 import pers.ervinse.enums.ResponseCode;
 import pers.ervinse.service.OrderService;
 import pers.ervinse.utils.ApiResponse;
@@ -79,5 +80,14 @@ public class OrderController {
     @PutMapping("/confirm/{OrderID}")
     ApiResponse confirmOrder(@PathVariable Integer OrderID) {
         return orderService.confirmOrder(OrderID);
+    }
+
+    @GetMapping("/address/{OrderID}")
+    ApiResponse<LogisticsInfoAll> getOrderAddress(@PathVariable Integer OrderID) {
+        LogisticsInfoAll orderLogistic = orderService.getOrderLogistic(OrderID);
+        if (orderLogistic == null) {
+            return ApiResponse.fail(ResponseCode.ORDER_NOT_EXIT);
+        }
+        return ApiResponse.success(orderLogistic);
     }
 }

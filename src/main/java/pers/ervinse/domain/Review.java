@@ -1,5 +1,6 @@
 package pers.ervinse.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,7 @@ public class Review {
     private String ReviewText;//评论内容
     private Integer UserID;//评论用户的id
     private Integer CommodityID;//商品id
+    private Integer CommentLevel;
+    @TableField(exist = false)
+    private Integer OrderID;
 }

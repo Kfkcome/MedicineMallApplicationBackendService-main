@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -21,4 +20,13 @@ public class Logistics {
     private Date LogisticDTime;//发货时间
     private Date LogisticRTime;//到货时间
 
+    public Logistics(Logistics logistics) {
+        LogisticsID = logistics.getLogisticsID();
+        LogisticTrackingNum = logistics.getLogisticTrackingNum();
+        LogisticCompany = logistics.getLogisticCompany();
+        LogisticDAddressID = logistics.getLogisticDAddressID();
+        LogisticRAddressID = logistics.getLogisticRAddressID();
+        LogisticDTime = logistics.getLogisticDTime();
+        LogisticRTime = logistics.getLogisticRTime();
+    }
 }
