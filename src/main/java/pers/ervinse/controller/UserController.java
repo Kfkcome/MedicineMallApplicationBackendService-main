@@ -3,13 +3,20 @@ package pers.ervinse.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.Address;
+import pers.ervinse.domain.Photo;
 import pers.ervinse.domain.User;
+import pers.ervinse.enums.ResponseCode;
+import pers.ervinse.mapper.PhotoMapper;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
+import pers.ervinse.utils.PhotoUtils;
 import pers.ervinse.utils.UserContextUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -19,11 +26,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final PhotoMapper photoMapper;
 
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PhotoMapper photoMapper) {
         this.userService = userService;
+        this.photoMapper = photoMapper;
     }
 
     /**
@@ -95,6 +104,18 @@ public class UserController {
     public ApiResponse updateUserLocation(@RequestBody Address address) {
         return userService.updateUserLocation(address);
     }
-    @PostMapping("head")
-    public ApiResponse updateUserHead(){return null;}
+
+    @PostMapping("/head")
+    public ApiResponse updateUserHead(HttpServletRequest request, HttpServletResponse response) {
+        return userService.addUserPhoto(request, response);
+    }
+
+    @GetMapping("/head")
+    public ApiResponse<Photo> getUserHead() {
+        Photo userHead = userService.getUserHead();
+        if (userHead == null) {
+            ApiResponse.fail(ResponseCode.HEAD_NOT_EXIT);
+        }
+        return ApiResponse.success(userHead);
+    }
 }

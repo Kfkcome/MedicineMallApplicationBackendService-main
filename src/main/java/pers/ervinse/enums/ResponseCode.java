@@ -32,7 +32,8 @@ public enum ResponseCode {
     ORDER_NOT_EXIT(2503, "查询不到此订单"),
     LOGISTICS_NOT_EXIT(2030, "查询不到该订单的物流活动"),
     INSERT_ERROR(2010, "插入失败"),
-    REVIEW_NOT_EXIT(2020, "查询不到评论");
+    REVIEW_NOT_EXIT(2020, "查询不到评论"),
+    HEAD_NOT_EXIT(2060, "查询不到头像");
 
     private final int code;
 

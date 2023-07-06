@@ -24,4 +24,8 @@ public class Photo {
     String PhotoAddress;//图片地址
     @TableField(exist = false)
     private String PhotoBytes;//图片字节
+
+    public void setPhotosID(Long aLong) {
+        PhotosID = Math.toIntExact(aLong);
+    }
 }

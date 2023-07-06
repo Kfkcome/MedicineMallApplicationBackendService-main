@@ -5,17 +5,25 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pers.ervinse.controller.UserController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import pers.ervinse.domain.Address;
+import pers.ervinse.domain.Photo;
 import pers.ervinse.domain.User;
+import pers.ervinse.domain.User_Photo;
 import pers.ervinse.enums.ResponseCode;
 import pers.ervinse.mapper.AddressMapper;
+import pers.ervinse.mapper.PhotoMapper;
 import pers.ervinse.mapper.UserMapper;
+import pers.ervinse.mapper.UserPhotoMapper;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
 import pers.ervinse.utils.JwtUtil;
+import pers.ervinse.utils.PhotoUtils;
 import pers.ervinse.utils.UserContextUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +34,18 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final AddressMapper addressMapper;
+    private final PhotoMapper photoMapper;
+    private final UserPhotoMapper userPhotoMapper;
     @Autowired
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, AddressMapper addressMapper, JwtUtil jwtUtil) {
+    public UserServiceImpl(UserMapper userMapper, AddressMapper addressMapper, PhotoMapper photoMapper, UserPhotoMapper userPhotoMapper, JwtUtil jwtUtil) {
         this.userMapper = userMapper;
         this.addressMapper = addressMapper;
+        this.photoMapper = photoMapper;
+        this.userPhotoMapper = userPhotoMapper;
+
         this.jwtUtil = jwtUtil;
     }
 
@@ -127,9 +140,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ApiResponse addUserPhoto() {
-        return null;
+    public ApiResponse addUserPhoto(HttpServletRequest request, HttpServletResponse response) {
+        String path = "src/main/resources/UserHeadPhoto/" + UserContextUtil.get().getUserID() + ".png";
+        Photo photo = new Photo();
+        photo.setPhotoAddress(path);
+        photo.setPhotosID(photoMapper.selectCount(null) + 1);
+        photoMapper.insert(photo);
+        PhotoUtils.savePhoto(request, path);
+        QueryWrapper<User_Photo> QueryWrapper = new QueryWrapper<>();
+        UpdateWrapper<User_Photo> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("UserID", UserContextUtil.get().getUserID());
+        updateWrapper.set("PhotosID", photo.getPhotosID());
+        QueryWrapper.eq("UserID", UserContextUtil.get().getUserID());
+        if (!userPhotoMapper.exists(QueryWrapper))
+            userPhotoMapper.insert(new User_Photo(UserContextUtil.get().getUserID(), photo.getPhotosID()));
+        else
+            userPhotoMapper.update(null, updateWrapper);
+        return ApiResponse.success();
     }
 
-
+    @Override
+    public Photo getUserHead() {
+        QueryWrapper<User_Photo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserID", UserContextUtil.get().getUserID());
+        User_Photo userPhoto = userPhotoMapper.selectOne(queryWrapper);
+        QueryWrapper<Photo> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("PhotosID", userPhoto.getPhotosID());
+        Photo photo = photoMapper.selectOne(queryWrapper1);
+        photo.setPhotoBytes(new String(PhotoUtils.convertPhotoToByte(photo.getPhotoAddress())));
+        return photo;
+    }
 }
