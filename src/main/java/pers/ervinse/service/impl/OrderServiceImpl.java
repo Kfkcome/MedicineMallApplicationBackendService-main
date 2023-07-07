@@ -10,6 +10,7 @@ import pers.ervinse.domain.dto.LogisticsInfoAll;
 import pers.ervinse.enums.ResponseCode;
 import pers.ervinse.mapper.*;
 import pers.ervinse.service.OrderService;
+import pers.ervinse.service.ShoppingCartService;
 import pers.ervinse.utils.ApiResponse;
 import pers.ervinse.utils.UserContextUtil;
 
@@ -30,14 +31,16 @@ public class OrderServiceImpl implements OrderService {
     private final ReviewMapper reviewMapper;
     private final AddressMapper addressMapper;
     private final LogisticsMapper logisticsMapper;
+    private final ShoppingCartService shoppingCartService;
 
     @Autowired
-    public OrderServiceImpl(OrderMapper orderMapper, CommodityMapper commodityMapper, ReviewMapper reviewMapper, AddressMapper addressMapper, LogisticsMapper logisticsMapper) {
+    public OrderServiceImpl(OrderMapper orderMapper, CommodityMapper commodityMapper, ReviewMapper reviewMapper, AddressMapper addressMapper, LogisticsMapper logisticsMapper, ShoppingCartService shoppingCartService) {
         this.orderMapper = orderMapper;
         this.commodityMapper = commodityMapper;
         this.reviewMapper = reviewMapper;
         this.addressMapper = addressMapper;
         this.logisticsMapper = logisticsMapper;
+        this.shoppingCartService = shoppingCartService;
     }
 
     /**
@@ -77,6 +80,37 @@ public class OrderServiceImpl implements OrderService {
         order.setLogisticsID(logistics.getLogisticsID());
         order.setOrderFullAmount(commodity.getCommodityPrice() * CommodityNum);
         int insert = orderMapper.insert(order);
+        if (insert == 0) return ApiResponse.fail(ResponseCode.UPDATE_ERROR_NOT_EXIT);
+        return ApiResponse.success(insert);
+    }
+
+    @Override
+    public ApiResponse generateOrderFromCart(Integer CommodityID, Integer CommodityNum) {
+        Commodity commodity = commodityMapper.selectByCommodityIDCommodity(CommodityID);
+        QueryWrapper<Address> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserID", UserContextUtil.get().getUserID());
+        List<Address> address = addressMapper.selectList(queryWrapper);
+        if (address == null || address.isEmpty()) {
+            return ApiResponse.fail(2090, "账户地址不存在，请先添加地址");
+        }
+        if (commodity == null || CommodityNum == 0) {
+            return ApiResponse.fail(ResponseCode.CANNOT_GENERATE_ORDER);
+        }
+        Logistics logistics = new Logistics();
+        logistics.setLogisticRAddressID(address.get(0).getAddressID());
+        logistics.setLogisticsID(Math.toIntExact(logisticsMapper.selectCount(null)) + 1);
+        logisticsMapper.insert(logistics);
+        Order order = new Order();
+        order.setOrderID(null);
+        order.setOrderTime(new Date());
+        order.setOrderPayState(1);
+        order.setUserID(UserContextUtil.get().getUserID());
+        order.setCommodityNum(CommodityNum);
+        order.setCommodityID(CommodityID);
+        order.setLogisticsID(logistics.getLogisticsID());
+        order.setOrderFullAmount(commodity.getCommodityPrice() * CommodityNum);
+        int insert = orderMapper.insert(order);
+        shoppingCartService.deleteCommodity(CommodityID);
         if (insert == 0) return ApiResponse.fail(ResponseCode.UPDATE_ERROR_NOT_EXIT);
         return ApiResponse.success(insert);
     }

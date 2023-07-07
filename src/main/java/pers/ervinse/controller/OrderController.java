@@ -9,6 +9,7 @@ import pers.ervinse.domain.Review;
 import pers.ervinse.domain.dto.LogisticsInfoAll;
 import pers.ervinse.enums.ResponseCode;
 import pers.ervinse.service.OrderService;
+import pers.ervinse.service.ShoppingCartService;
 import pers.ervinse.utils.ApiResponse;
 
 import java.util.List;
@@ -19,9 +20,11 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
+
     @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+
     }
 
     /**
@@ -36,6 +39,13 @@ public class OrderController {
     ApiResponse addOrder(Integer CommodityID, Integer CommodityNum) {
         return orderService.generateOrder(CommodityID, CommodityNum);
     }
+
+    @LogPrint
+    @PostMapping("/addFromCart")
+    ApiResponse addFromCart(Integer CommodityID, Integer CommodityNum) {
+        return orderService.generateOrderFromCart(CommodityID, CommodityNum);
+    }
+
 
     /**
      * 获取订单信息

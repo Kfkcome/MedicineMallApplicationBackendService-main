@@ -88,7 +88,14 @@ public class UserServiceImpl implements UserService {
             //未查到同名
         } else {
             int affectRows = userMapper.insert(user);
-            log.info("插入成功.影响了" + affectRows + "行");
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("UserAccount", user.getUserAccount());
+            User user1 = userMapper.selectOne(queryWrapper);
+            ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.setUserID(user1.getUserID());
+            shoppingCart.setShoppingCartAmount(0);
+            int affectRows2 = shoppingCartMapper.insert(shoppingCart);
+            log.info("插入成功.影响了" + affectRows + " " + affectRows2 + "行");
             return 1;
         }
     }

@@ -11,6 +11,8 @@ import java.util.List;
 public interface OrderService {
     ApiResponse generateOrder(Integer Commodity, Integer CommodityNum);
 
+    ApiResponse generateOrderFromCart(Integer Commodity, Integer CommodityNum);
+
     Order getOrderInfo(Integer OrderID);
 
     List<Order> getAllUserOrder();
