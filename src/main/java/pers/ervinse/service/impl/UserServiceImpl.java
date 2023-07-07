@@ -5,16 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import pers.ervinse.domain.Address;
-import pers.ervinse.domain.Photo;
-import pers.ervinse.domain.User;
-import pers.ervinse.domain.User_Photo;
+import pers.ervinse.domain.*;
 import pers.ervinse.enums.ResponseCode;
-import pers.ervinse.mapper.AddressMapper;
-import pers.ervinse.mapper.PhotoMapper;
-import pers.ervinse.mapper.UserMapper;
-import pers.ervinse.mapper.UserPhotoMapper;
+import pers.ervinse.mapper.*;
 import pers.ervinse.service.UserService;
 import pers.ervinse.utils.ApiResponse;
 import pers.ervinse.utils.JwtUtil;
@@ -23,7 +16,6 @@ import pers.ervinse.utils.UserContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,15 +28,19 @@ public class UserServiceImpl implements UserService {
     private final AddressMapper addressMapper;
     private final PhotoMapper photoMapper;
     private final UserPhotoMapper userPhotoMapper;
+    private final ShoppingCartMapper shoppingCartMapper;
+    private final OrderMapper orderMapper;
     @Autowired
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, AddressMapper addressMapper, PhotoMapper photoMapper, UserPhotoMapper userPhotoMapper, JwtUtil jwtUtil) {
+    public UserServiceImpl(UserMapper userMapper, AddressMapper addressMapper, PhotoMapper photoMapper, UserPhotoMapper userPhotoMapper, ShoppingCartMapper shoppingCartMapper, OrderMapper orderMapper, JwtUtil jwtUtil) {
         this.userMapper = userMapper;
         this.addressMapper = addressMapper;
         this.photoMapper = photoMapper;
         this.userPhotoMapper = userPhotoMapper;
+        this.shoppingCartMapper = shoppingCartMapper;
+        this.orderMapper = orderMapper;
 
         this.jwtUtil = jwtUtil;
     }
@@ -170,4 +166,19 @@ public class UserServiceImpl implements UserService {
         photo.setPhotoBytes(new String(PhotoUtils.convertPhotoToByte(photo.getPhotoAddress())));
         return photo;
     }
+
+    @Override
+    public ApiResponse unsubscribeAccount() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserID", UserContextUtil.get().getUserID());
+        userMapper.delete(queryWrapper);
+        QueryWrapper<ShoppingCart> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("UserID", UserContextUtil.get().getUserID());
+        shoppingCartMapper.delete(queryWrapper1);
+        QueryWrapper<Order> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("UserID", UserContextUtil.get().getUserID());
+        orderMapper.delete(queryWrapper2);
+        return ApiResponse.success();
+    }
+
 }

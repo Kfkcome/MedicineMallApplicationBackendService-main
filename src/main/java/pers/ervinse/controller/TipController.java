@@ -14,6 +14,11 @@ public class TipController {
     @Autowired
     TipService tipService;
 
+    /**
+     * 得到随机提示
+     *
+     * @return {@link ApiResponse}<{@link Tip}>
+     */
     @GetMapping("/random")
     ApiResponse<Tip> getRandomTip() {
         Tip randomTip = tipService.getRandomTip();

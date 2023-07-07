@@ -36,6 +36,7 @@ public class ShoppingCartController {
      * @param commodityDto
      * @return
      */
+    @LogPrint(title = "添加商品")
     @PostMapping
     public ApiResponse addCommodity(@RequestBody CommodityDto commodityDto) {
         return shoppingCartService.addCommodity(commodityDto);
@@ -47,6 +48,7 @@ public class ShoppingCartController {
      * @param CommodityID
      * @return
      */
+    @LogPrint(title = "删除商品")
     @DeleteMapping("/{CommodityID}")
     public ApiResponse deleteCommodity(@PathVariable("CommodityID") Integer CommodityID) {
         return shoppingCartService.deleteCommodity(CommodityID);
@@ -58,6 +60,7 @@ public class ShoppingCartController {
      * @param commodityDto
      * @return
      */
+    @LogPrint(title = "修改商品数量")
     @PutMapping
     public ApiResponse uodateCommodity(@RequestBody CommodityDto commodityDto) {
         return shoppingCartService.updateCommodity(commodityDto);

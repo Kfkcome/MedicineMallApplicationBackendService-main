@@ -24,6 +24,12 @@ public class LogisticsController {
     }
 
 
+    /**
+     * 得到物流
+     *
+     * @param OrderID 订单id
+     * @return {@link ApiResponse}<{@link Logistics}>
+     */
     @GetMapping("/{OrderID}")
     ApiResponse<Logistics> getLogistic(@PathVariable Integer OrderID) {
         Logistics logistic = logisticsService.getLogistic(OrderID);

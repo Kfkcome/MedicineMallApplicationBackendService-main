@@ -27,4 +27,6 @@ public interface UserService {
     ApiResponse addUserPhoto(HttpServletRequest request, HttpServletResponse response);
 
     Photo getUserHead();
+
+    ApiResponse unsubscribeAccount();
 }

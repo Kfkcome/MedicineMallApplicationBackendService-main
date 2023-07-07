@@ -53,7 +53,6 @@ public class CommodityController {
      *
      * @return {@link List}<{@link Commodity}>
      */
-    @LogPrint
     @GetMapping("/hotMedicine")
     public ApiResponse<List<Commodity>> getHotCommodity() {
         log.info("getHotMedicine");
@@ -96,6 +95,7 @@ public class CommodityController {
     }
 
     /**
+     * 被类型商品
      * 根据类型查询商品
      *
      * @param CommodityType 商品类型
@@ -106,11 +106,23 @@ public class CommodityController {
         return ApiResponse.success(commodityService.getCommodityByType(CommodityType));
     }
 
+    /**
+     * 获得商品名字
+     *
+     * @param CommodityName 商品名称
+     * @return {@link ApiResponse}<{@link List}<{@link Commodity}>>
+     */
     @GetMapping("name")
     public ApiResponse<List<Commodity>> getCommodityByName(String CommodityName) {
         return ApiResponse.success(commodityService.getCommodityByName(CommodityName));
     }
 
+    /**
+     * 获得商品评论
+     *
+     * @param CommodityID 商品id
+     * @return {@link ApiResponse}<{@link List}<{@link Review}>>
+     */
     @GetMapping("review/{CommodityID}")
     public ApiResponse<List<Review>> getCommodityReview(@PathVariable Integer CommodityID) {
         List<Review> commodityReview = commodityService.getCommodityReview(CommodityID);

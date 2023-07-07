@@ -41,7 +41,7 @@ public class UserController {
      * @param user 包含用户名和密码的对象
      * @return 登录成功返回true, 否则返回false
      */
-    @LogPrint
+    @LogPrint(title = "登录")
     @PostMapping("/login")
     public ApiResponse login(@RequestBody User user) {
 
@@ -55,7 +55,7 @@ public class UserController {
      * @param user 包含用户名和密码的对象
      * @return 登录成功返回true, 否则返回false
      */
-    @LogPrint
+    @LogPrint(title = "注册")
     @PostMapping("/register")
     public ApiResponse<Integer> register(@RequestBody User user) {
         log.info("register :" + user);
@@ -80,7 +80,7 @@ public class UserController {
      * @param UserAccount 用户账号
      * @return ApiResponse<User> 用户所有信息
      */
-    @LogPrint
+    @LogPrint(title = "获取个人信息")
     @GetMapping("/getDescription/{UserAccount}")
     public ApiResponse<User> getUserInfo(@PathVariable String UserAccount) {
         log.info("getUserInfo :" + UserAccount);
@@ -89,27 +89,32 @@ public class UserController {
         return ApiResponse.success(userInfo);
     }
 
+    @LogPrint(title = "添加地址")
     @PostMapping("/location/add")
     public ApiResponse addUserLocation(@RequestBody Address address) {
         address.setUserID(UserContextUtil.get().getUserID());
         return userService.addUserLocation(address);
     }
 
+    @LogPrint(title = "获取地址")
     @GetMapping("/location/all")
     public ApiResponse<List<Address>> getUserLocation() {
         return ApiResponse.success(userService.getUserLocation());
     }
 
+    @LogPrint(title = "修改地址")
     @PutMapping("/location")
     public ApiResponse updateUserLocation(@RequestBody Address address) {
         return userService.updateUserLocation(address);
     }
 
+    @LogPrint(title = "上传头像")
     @PostMapping("/head")
     public ApiResponse updateUserHead(HttpServletRequest request, HttpServletResponse response) {
         return userService.addUserPhoto(request, response);
     }
 
+    @LogPrint(title = "获取头像")
     @GetMapping("/head")
     public ApiResponse<Photo> getUserHead() {
         Photo userHead = userService.getUserHead();
@@ -117,5 +122,11 @@ public class UserController {
             ApiResponse.fail(ResponseCode.HEAD_NOT_EXIT);
         }
         return ApiResponse.success(userHead);
+    }
+
+    @LogPrint(title = "注销账号")
+    @DeleteMapping("/unsubscribe")
+    public ApiResponse unsubscribeAccount() {
+        return userService.unsubscribeAccount();
     }
 }

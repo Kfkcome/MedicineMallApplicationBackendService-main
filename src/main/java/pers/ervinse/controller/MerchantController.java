@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pers.ervinse.annotatian.LogPrint;
 import pers.ervinse.domain.Address;
 import pers.ervinse.domain.Merchant;
 import pers.ervinse.service.MerchantService;
@@ -14,6 +15,7 @@ import javax.xml.stream.Location;
 
 @RestController
 @RequestMapping("/merchant")
+
 public class MerchantController {
     private final MerchantService merchantService;
 
@@ -22,6 +24,7 @@ public class MerchantController {
         this.merchantService = merchantService;
     }
 
+    @LogPrint
     @GetMapping("/info/{MerchantID}")
     ApiResponse<Merchant> getMerchantInfo(@PathVariable Integer MerchantID) {
         Merchant allInfo = merchantService.getAllInfo(MerchantID);
