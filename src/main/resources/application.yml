@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    username: root
-    password: no.tt@cpm956
-    url: jdbc:mysql://123.57.186.69:3306/MedicineMall?useSSL=false&serverTimezone=UTC&allowMultiQueries=true
+    username: user
+    password: password
+    url: jdbc:mysql://localhost:3306/MedicineMall?useSSL=false&serverTimezone=UTC&allowMultiQueries=true
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #开启mybatis-plus日志
@@ -26,5 +26,5 @@ page helper:
   helper-dialect: mysql
 
 jwt:
-  secret: 52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain52FeiDain
+  secret: jwt_secret
   expiration: 604800
